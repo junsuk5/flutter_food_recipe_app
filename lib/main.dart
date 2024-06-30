@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/presentation/auth/sign_in_screen.dart';
 
+import 'router/router.dart';
 import 'ui/theme.dart';
 import 'ui/util.dart';
 
@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Poppins", "Poppins");
 
     MaterialTheme theme = MaterialTheme(textTheme);
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: const SignInScreen(),
     );
   }
 }
