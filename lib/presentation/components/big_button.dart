@@ -31,6 +31,7 @@ class _BigButtonState extends State<BigButton> {
       onTapUp: (_) {
         setState(() {
           isPressed = false;
+          widget.onPressed?.call();
         });
       },
       onTapCancel: () {

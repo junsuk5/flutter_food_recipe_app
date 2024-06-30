@@ -5,7 +5,12 @@ import 'package:food_recipe_app/presentation/components/medium_button.dart';
 import '../../ui/text_styles.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  final void Function()? onStartCookingTap;
+
+  const SplashScreen({
+    super.key,
+    this.onStartCookingTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +66,10 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 50),
-                const MediumButton(text: 'Start Cooking'),
+                MediumButton(
+                  text: 'Start Cooking',
+                  onPressed: () => onStartCookingTap?.call(),
+                ),
                 const SizedBox(height: 80),
               ],
             ),

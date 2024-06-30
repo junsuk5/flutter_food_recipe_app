@@ -31,6 +31,7 @@ class _MediumButtonState extends State<MediumButton> {
       onTapUp: (_) {
         setState(() {
           isPressed = false;
+          widget.onPressed?.call();
         });
       },
       onTapCancel: () {

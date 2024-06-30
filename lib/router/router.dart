@@ -8,7 +8,9 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => SplashScreen(
+        onStartCookingTap: () => context.go('/sign_in'),
+      ),
     ),
     GoRoute(
       path: '/sign_in',
