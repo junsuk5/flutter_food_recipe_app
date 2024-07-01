@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:food_recipe_app/presentation/components/medium_button.dart';
-
-import '../../ui/text_styles.dart';
+import 'package:food_recipe_app/core/presentation/components/medium_button.dart';
+import 'package:food_recipe_app/ui/text_styles.dart';
 
 class SplashScreen extends StatelessWidget {
   final void Function()? onStartCookingTap;
@@ -14,10 +12,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     return Scaffold(
       body: Stack(
         children: [

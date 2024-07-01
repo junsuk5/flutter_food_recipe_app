@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/presentation/components/big_button.dart';
-import 'package:food_recipe_app/presentation/components/custom_text_field.dart';
+import 'package:food_recipe_app/core/presentation/components/big_button.dart';
+import 'package:food_recipe_app/core/presentation/components/custom_text_field.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  final void Function()? onSignupTap;
+
+  const SignInScreen({
+    super.key,
+    this.onSignupTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +79,13 @@ class SignInScreen extends StatelessWidget {
                       'Don’t have an account? ',
                       style: TextStyles.smallTextSemiBold,
                     ),
-                    Text(
-                      'Sign up',
-                      style: TextStyles.smallTextSemiBold.copyWith(
-                        color: ColorStyles.secondaryColor,
+                    GestureDetector(
+                      onTap: () => onSignupTap?.call(),
+                      child: Text(
+                        'Sign up',
+                        style: TextStyles.smallTextSemiBold.copyWith(
+                          color: ColorStyles.secondaryColor,
+                        ),
                       ),
                     ),
                   ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
-import '../../ui/text_styles.dart';
+import '../../../ui/text_styles.dart';
 
 class BigButton extends StatefulWidget {
   final String text;
