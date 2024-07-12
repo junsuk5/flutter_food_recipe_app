@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'router/router.dart';
+import 'core/router/router.dart';
 import 'ui/theme.dart';
 import 'ui/util.dart';
 
@@ -30,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

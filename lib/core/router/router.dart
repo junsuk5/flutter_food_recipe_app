@@ -1,12 +1,20 @@
 import 'package:food_recipe_app/auth/presentation/create_account/create_account_screen.dart';
 import 'package:food_recipe_app/auth/presentation/sing_in/sign_in_screen.dart';
 import 'package:food_recipe_app/auth/presentation/splash/splash_screen.dart';
+import 'package:food_recipe_app/recipe/data/repository/recipe_repository_impl.dart';
+import 'package:food_recipe_app/recipe/presentation/home/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/home',
   routes: [
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => HomeScreen(
+        recipeRepository: RecipeRepositoryImpl(),
+      ),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => SplashScreen(
