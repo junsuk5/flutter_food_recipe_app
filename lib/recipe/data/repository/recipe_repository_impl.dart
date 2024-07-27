@@ -1,16 +1,22 @@
 import 'package:food_recipe_app/core/result.dart';
+import 'package:food_recipe_app/recipe/data/data_source/recipe/recipe_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/repository/recipe_repository.dart';
 
 class RecipeRepositoryImpl implements RecipeRepository {
-  @override
-  Future<Result<List<Recipe>>> getSavedRecipes() async {
-    await Future.delayed(const Duration(seconds: 1));
+  final RecipeDataSource _recipeDataSource;
 
-    return const Result.success([
-      Recipe(name: '떡볶이'),
-      Recipe(name: '짜장면'),
-      Recipe(name: '탕수육'),
-    ]);
+  const RecipeRepositoryImpl({
+    required RecipeDataSource recipeDataSource,
+  }) : _recipeDataSource = recipeDataSource;
+
+  @override
+  Future<Result<List<Recipe>>> getRecipes() async {
+    try {
+      final result = await _recipeDataSource.getRecipes();
+      return Result.success(result);
+    } catch (e) {
+      return const Result.error('로드에 실패했습니다.');
+    }
   }
 }

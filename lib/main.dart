@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/router/router.dart';
 
-import 'core/router/router.dart';
 import 'ui/theme.dart';
 import 'ui/util.dart';
 

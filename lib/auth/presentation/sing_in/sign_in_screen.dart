@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/presentation/components/big_button.dart';
-import 'package:food_recipe_app/core/presentation/components/custom_text_field.dart';
+import 'package:food_recipe_app/core/presentation/component/big_button.dart';
+import 'package:food_recipe_app/core/presentation/component/custom_text_field.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class SignInScreen extends StatelessWidget {
-  final void Function()? onSignupTap;
+  final void Function() onSignupTap;
+  final void Function() onSignInTap;
 
   const SignInScreen({
     super.key,
-    this.onSignupTap,
+    required this.onSignupTap,
+    required this.onSignInTap,
   });
 
   @override
@@ -48,7 +50,10 @@ class SignInScreen extends StatelessWidget {
                       .copyWith(color: ColorStyles.secondaryColor),
                 ),
                 const SizedBox(height: 30),
-                const BigButton(text: 'Sign In'),
+                BigButton(
+                  text: 'Sign In',
+                  onPressed: () => onSignInTap.call(),
+                ),
                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -77,13 +82,13 @@ class SignInScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Don’t have an account? ',
-                      style: TextStyles.smallTextSemiBold,
+                      style: TextStyles.smallTextBold,
                     ),
                     GestureDetector(
-                      onTap: () => onSignupTap?.call(),
+                      onTap: () => onSignupTap.call(),
                       child: Text(
                         'Sign up',
-                        style: TextStyles.smallTextSemiBold.copyWith(
+                        style: TextStyles.smallTextBold.copyWith(
                           color: ColorStyles.secondaryColor,
                         ),
                       ),

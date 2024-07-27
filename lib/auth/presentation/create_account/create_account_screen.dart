@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/presentation/components/big_button.dart';
-import 'package:food_recipe_app/core/presentation/components/custom_checkbox.dart';
-import 'package:food_recipe_app/core/presentation/components/custom_text_field.dart';
+import 'package:food_recipe_app/core/presentation/component/big_button.dart';
+import 'package:food_recipe_app/core/presentation/component/custom_checkbox.dart';
+import 'package:food_recipe_app/core/presentation/component/custom_text_field.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
@@ -18,7 +18,8 @@ class CreateAccountScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Create an account', style: TextStyles.largeTextBold),
+                const Text('Create an account',
+                    style: TextStyles.largeTextBold),
                 const Text(
                   'Let’s help you set up your account,',
                   style: TextStyles.smallTextRegular,
@@ -83,13 +84,13 @@ class CreateAccountScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Already a member? ',
-                      style: TextStyles.smallTextSemiBold,
+                      style: TextStyles.smallTextBold,
                     ),
                     GestureDetector(
                       onTap: () => {},
                       child: Text(
                         'Sign in',
-                        style: TextStyles.smallTextSemiBold.copyWith(
+                        style: TextStyles.smallTextBold.copyWith(
                           color: ColorStyles.secondaryColor,
                         ),
                       ),

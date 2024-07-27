@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/presentation/components/medium_button.dart';
+import 'package:food_recipe_app/core/presentation/component/medium_button.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class SplashScreen extends StatelessWidget {
