@@ -7,6 +7,7 @@ import 'package:food_recipe_app/recipe/domain/repository/recipe_repository.dart'
 class MockRecipeRepositoryImpl implements RecipeRepository {
   final _data = [
     const Recipe(
+      category: 'Indian',
       id: 1,
       name: 'Traditional spare ribs baked',
       image:
@@ -55,6 +56,7 @@ class MockRecipeRepositoryImpl implements RecipeRepository {
     ),
     const Recipe(
       id: 2,
+      category: 'Asian',
       name: 'Spice roasted chicken with flavored rice',
       image:
           'https://cdn.pixabay.com/photo/2018/12/04/16/49/tandoori-3856045_1280.jpg',
@@ -102,6 +104,7 @@ class MockRecipeRepositoryImpl implements RecipeRepository {
     ),
     const Recipe(
       id: 3,
+      category: 'Chinese',
       name: 'Spicy fried rice mix chicken bali',
       image:
           'https://cdn.pixabay.com/photo/2019/09/07/19/02/spanish-paella-4459519_1280.jpg',
@@ -139,6 +142,7 @@ class MockRecipeRepositoryImpl implements RecipeRepository {
       ],
     ),
     const Recipe(
+      category: 'Japanese',
       id: 4,
       name: 'Ttekbokki',
       image:

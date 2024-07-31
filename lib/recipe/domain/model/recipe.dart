@@ -13,6 +13,7 @@ class Recipe with _$Recipe {
     required String chef,
     required String time,
     required num rating,
+    @Default("Italian") String category,
     required List<RecipeIngredient> ingredients,
   }) = _Recipe;
 }

@@ -43,7 +43,7 @@ class _MediumButtonState extends State<MediumButton> {
         width: 243,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0), // 모든 코너를 10.0의 반경으로 둥글게 설정
-          color: !isPressed ? ColorStyles.primaryColor : ColorStyles.gray4,
+          color: !isPressed ? ColorStyles.primary100 : ColorStyles.gray4,
         ),
         height: 60,
         child: Row(

@@ -1,0 +1,47 @@
+@startuml
+package "Service Locator (get_it)" {
+    [UserRepository]
+    [AuthService]
+    [ApiClient]
+}
+
+package "Flutter App" {
+    [Widget A]
+    [Widget B]
+    [ViewModel]
+}
+
+cloud "External Dependencies" {
+    database "Database"
+    interface "Network"
+    file "SharedPreferences"
+}
+
+"Service Locator (get_it)" --> "Flutter App" : 의존성 주입
+"External Dependencies" --> "Service Locator (get_it)" : 주입 대상 객체를 Factory, Singleton 등으로 등록
+
+note right of "Service Locator (get_it)"
+  1. 앱 시작시 서비스 로케이터 초기화
+  2. 의존성 등록
+  3. 필요한 객체를 편하게 가져다 쓸 수 있음
+  4. 테스트와 의존성 교체가 간편해 짐
+end note
+
+note left of "Flutter App"
+  final getIt = GetIt.instance;
+
+  void setupDependencies() {
+    getIt.registerSingleton<ApiClient>(ApiClient());
+    getIt.registerFactory<UserRepository>(
+      () => UserRepository(getIt<ApiClient>())
+    );
+  }
+
+  // Usage example
+  class MyWidget extends StatelessWidget {
+    final userRepo = getIt<UserRepository>();
+    // ...
+  }
+end note
+
+@enduml

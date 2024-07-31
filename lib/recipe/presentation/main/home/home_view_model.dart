@@ -1,10 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/domain/model/user.dart';
+import 'package:food_recipe_app/recipe/domain/repository/user_repository.dart';
+import 'package:food_recipe_app/recipe/domain/use_case/get_categories_use_case.dart';
+import 'package:food_recipe_app/recipe/domain/use_case/get_user_use_case.dart';
+import 'package:food_recipe_app/recipe/presentation/main/home/home_ui_state.dart';
 
 class HomeViewModel with ChangeNotifier {
-  final User _user;
+  final GetUserUseCase _getUserUseCase;
+  final GetCategoriesUseCase _getCategoriesUseCase;
 
-  HomeViewModel(this._user);
+  HomeViewModel({
+    required GetUserUseCase getUserUseCase,
+    required GetCategoriesUseCase getCategoriesUseCase,
+  })  : _getUserUseCase = getUserUseCase,
+        _getCategoriesUseCase = getCategoriesUseCase {
+    fetchUser();
+    fetchCategories();
+  }
 
-  User get user => _user;
+  HomeUiState _state = const HomeUiState(
+    user: User(
+      id: 0,
+      name: '',
+      email: '',
+      image: '',
+    ),
+  );
+
+  HomeUiState get state => _state;
+
+  Future<void> fetchUser() async {
+    final result = await _getUserUseCase.execute();
+    switch (result) {
+      case Success<User>():
+        _state = state.copyWith(user: result.data);
+        notifyListeners();
+      case Error<User>():
+      // TODO: Handle this case.
+    }
+  }
+
+  Future<void> fetchCategories() async {
+    final result = await _getCategoriesUseCase.execute();
+    switch (result) {
+      case Success<List<String>>():
+        _state = state.copyWith(categories: result.data);
+        notifyListeners();
+      case Error<List<String>>():
+      // TODO: Handle this case.
+    }
+  }
+
+  Future<void> fetchRecipes(String category) async {}
+
+  Future<void> fetchNewRecipes() async {}
 }
