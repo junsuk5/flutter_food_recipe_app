@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/model/user.dart';
-import 'package:food_recipe_app/recipe/domain/repository/user_repository.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_categories_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_recipes_by_category_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_user_use_case.dart';
@@ -17,8 +16,7 @@ class HomeViewModel with ChangeNotifier {
     required GetUserUseCase getUserUseCase,
     required GetCategoriesUseCase getCategoriesUseCase,
     required GetRecipesByCategoryUseCase getRecipesByCategoryUseCase,
-  })
-      : _getUserUseCase = getUserUseCase,
+  })  : _getUserUseCase = getUserUseCase,
         _getCategoriesUseCase = getCategoriesUseCase,
         _getRecipesByCategoryUseCase = getRecipesByCategoryUseCase {
     fetchUser();
@@ -33,6 +31,7 @@ class HomeViewModel with ChangeNotifier {
       email: '',
       image: '',
     ),
+    selectedCategory: 'All',
   );
 
   HomeUiState get state => _state;
@@ -61,7 +60,7 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> fetchDishes(String category) async {
     final result = await _getRecipesByCategoryUseCase.execute(category);
-    switch(result) {
+    switch (result) {
       case Success<List<Recipe>>():
         _state = state.copyWith(
           currentRecipes: result.data,
@@ -73,4 +72,11 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<void> fetchNewRecipes() async {}
+
+  void onSelectCategory(String category) async {
+    _state = state.copyWith(selectedCategory: category);
+    notifyListeners();
+
+    await fetchDishes(category);
+  }
 }

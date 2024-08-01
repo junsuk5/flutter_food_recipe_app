@@ -10,6 +10,7 @@ class HomeUiState with _$HomeUiState {
     @Default([]) List<String> categories,
     @Default([]) List<Recipe> currentRecipes,
     @Default([]) List<Recipe> newRecipes,
+    required String selectedCategory,
     required User user,
   }) = _HomeUiState;
 }

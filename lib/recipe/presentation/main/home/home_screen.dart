@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:food_recipe_app/core/presentation/component/category_row.dart';
 import 'package:food_recipe_app/core/presentation/component/dish_card.dart';
 import 'package:food_recipe_app/core/presentation/component/small_box.dart';
 import 'package:food_recipe_app/core/presentation/component/text_field_for_move.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
+    final state = viewModel.state;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,41 +51,21 @@ class HomeScreen extends StatelessWidget {
         ),
         const TextFieldForMove(
             hintText: 'Search recipe', path: '/search_screen'),
+        // 카테고리 선택
         Skeletonizer(
-          enabled: viewModel.state.categories.isEmpty,
+          enabled: state.categories.isEmpty,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: viewModel.state.categories.map((e) {
-                  if (e == 'All') {
-                    return Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: ColorStyles.primary100,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 7),
-                      child: Text(
-                        e,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 7, horizontal: 20),
-                    child: Text(
-                      e,
-                      style: const TextStyle(color: ColorStyles.primary80),
-                    ),
-                  );
-                }).toList(),
-              ),
+            child: CategoryRow(
+              categories: state.categories,
+              selectedCategory: state.selectedCategory,
+              onTapCategory: (String category) {
+                viewModel.onSelectCategory(category);
+              },
             ),
           ),
         ),
+        // Dishes
         Skeletonizer(
           enabled: viewModel.state.currentRecipes.isEmpty,
           child: Padding(
