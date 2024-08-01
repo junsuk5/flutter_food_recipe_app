@@ -60,7 +60,7 @@ final router = GoRouter(
       path: '/main_screen',
       builder: (context, state) => MainScreen(
         repository: SavedRecipeRepositoryImpl(
-          recipeDataSource: MockSavedRecipeDataSource(),
+          recipeDataSource: MockRecipeDataSource(),
         ),
       ),
     ),

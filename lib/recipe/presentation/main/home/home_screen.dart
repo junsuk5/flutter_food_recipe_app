@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:food_recipe_app/core/presentation/component/dish_card.dart';
 import 'package:food_recipe_app/core/presentation/component/small_box.dart';
 import 'package:food_recipe_app/core/presentation/component/text_field_for_move.dart';
+import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:provider/provider.dart';
@@ -78,6 +80,34 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 }).toList(),
+              ),
+            ),
+          ),
+        ),
+        Skeletonizer(
+          enabled: viewModel.state.currentRecipes.isEmpty,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: viewModel.state.currentRecipes
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: DishCard(
+                          recipe: e,
+                          isFavorite: true,
+                          onTapFavorite: (Recipe recipe) {
+                            print('onTapFavorite');
+                          },
+                          onTapDish: (Recipe recipe) {
+                            print('onTapDish');
+                          },
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

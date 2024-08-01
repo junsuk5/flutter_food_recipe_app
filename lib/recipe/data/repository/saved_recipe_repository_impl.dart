@@ -1,13 +1,13 @@
 import 'package:food_recipe_app/core/result.dart';
-import 'package:food_recipe_app/recipe/data/data_source/saved_recipe/saved_recipe_data_source.dart';
+import 'package:food_recipe_app/recipe/data/data_source/recipe/recipe_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/repository/saved_recipe_repository.dart';
 
 class SavedRecipeRepositoryImpl implements SavedRecipeRepository {
-  final SavedRecipeDataSource _recipeDataSource;
+  final RecipeDataSource _recipeDataSource;
 
   const SavedRecipeRepositoryImpl({
-    required SavedRecipeDataSource recipeDataSource,
+    required RecipeDataSource recipeDataSource,
   }) : _recipeDataSource = recipeDataSource;
 
   @override

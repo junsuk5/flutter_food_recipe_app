@@ -8,6 +8,7 @@ import 'package:food_recipe_app/recipe/data/repository/user_repository_impl.dart
 import 'package:food_recipe_app/recipe/domain/model/user.dart';
 import 'package:food_recipe_app/recipe/domain/repository/saved_recipe_repository.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_categories_use_case.dart';
+import 'package:food_recipe_app/recipe/domain/use_case/get_recipes_by_category_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_user_use_case.dart';
 import 'package:food_recipe_app/recipe/presentation/main/home/home_view_model.dart';
 import 'package:food_recipe_app/recipe/presentation/main/notification/notification_screen.dart';
@@ -64,12 +65,15 @@ class _MainScreenState extends State<MainScreen> {
                 getCategoriesUseCase: GetCategoriesUseCase(
                   MockRecipeRepositoryImpl(),
                 ),
+                getRecipesByCategoryUseCase: GetRecipesByCategoryUseCase(
+                    RecipeRepositoryImpl(
+                        recipeDataSource: MockRecipeDataSource())),
               ),
           child: const HomeScreen()),
       ChangeNotifierProvider<SavedRecipeViewModel>(
           create: (context) => SavedRecipeViewModel(
                 SavedRecipeRepositoryImpl(
-                  recipeDataSource: MockSavedRecipeDataSource(),
+                  recipeDataSource: MockRecipeDataSource(),
                 ),
               ),
           child: const SavedRecipeScreen()),

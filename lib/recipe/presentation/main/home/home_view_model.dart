@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/result.dart';
+import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/model/user.dart';
 import 'package:food_recipe_app/recipe/domain/repository/user_repository.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_categories_use_case.dart';
+import 'package:food_recipe_app/recipe/domain/use_case/get_recipes_by_category_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_user_use_case.dart';
 import 'package:food_recipe_app/recipe/presentation/main/home/home_ui_state.dart';
 
 class HomeViewModel with ChangeNotifier {
   final GetUserUseCase _getUserUseCase;
   final GetCategoriesUseCase _getCategoriesUseCase;
+  final GetRecipesByCategoryUseCase _getRecipesByCategoryUseCase;
 
   HomeViewModel({
     required GetUserUseCase getUserUseCase,
     required GetCategoriesUseCase getCategoriesUseCase,
-  })  : _getUserUseCase = getUserUseCase,
-        _getCategoriesUseCase = getCategoriesUseCase {
+    required GetRecipesByCategoryUseCase getRecipesByCategoryUseCase,
+  })
+      : _getUserUseCase = getUserUseCase,
+        _getCategoriesUseCase = getCategoriesUseCase,
+        _getRecipesByCategoryUseCase = getRecipesByCategoryUseCase {
     fetchUser();
     fetchCategories();
+    fetchDishes('All');
   }
 
   HomeUiState _state = const HomeUiState(
@@ -52,7 +59,18 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> fetchRecipes(String category) async {}
+  Future<void> fetchDishes(String category) async {
+    final result = await _getRecipesByCategoryUseCase.execute(category);
+    switch(result) {
+      case Success<List<Recipe>>():
+        _state = state.copyWith(
+          currentRecipes: result.data,
+        );
+        notifyListeners();
+      case Error<List<Recipe>>():
+      // TODO: Handle this case.
+    }
+  }
 
   Future<void> fetchNewRecipes() async {}
 }
