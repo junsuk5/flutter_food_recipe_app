@@ -22,11 +22,13 @@ class CategoryRow extends StatelessWidget {
         children: categories.map((e) {
           if (e == selectedCategory) {
             return GestureDetector(
+              behavior: HitTestBehavior.opaque, // 패딩에 클릭 먹게
               onTap: () => onTapCategory(e),
               child: SelectedCategory(category: e),
             );
           }
           return GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () => onTapCategory(e),
             child: UnSelectedCategory(category: e),
           );
