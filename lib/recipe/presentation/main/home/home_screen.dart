@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:food_recipe_app/core/presentation/component/category_row.dart';
 import 'package:food_recipe_app/core/presentation/component/dish_card.dart';
+import 'package:food_recipe_app/core/presentation/component/new_recipe_card.dart';
 import 'package:food_recipe_app/core/presentation/component/small_box.dart';
 import 'package:food_recipe_app/core/presentation/component/text_field_for_move.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
         Skeletonizer(
           enabled: viewModel.state.currentRecipes.isEmpty,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            padding: const EdgeInsets.only(top: 10, left: 30, bottom: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -87,6 +87,32 @@ class HomeScreen extends StatelessWidget {
                             print('onTapDish');
                           },
                         ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+          child: Text(
+            'New Recipes',
+            style: TextStyles.normalTextBold,
+          ),
+        ),
+        Skeletonizer(
+          enabled: viewModel.state.newRecipes.isEmpty,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: viewModel.state.newRecipes
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: NewRecipeCard(recipe: e),
                       ),
                     )
                     .toList(),

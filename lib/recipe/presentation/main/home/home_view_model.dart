@@ -3,6 +3,7 @@ import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/model/user.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_categories_use_case.dart';
+import 'package:food_recipe_app/recipe/domain/use_case/get_new_recipes_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_recipes_by_category_use_case.dart';
 import 'package:food_recipe_app/recipe/domain/use_case/get_user_use_case.dart';
 import 'package:food_recipe_app/recipe/presentation/main/home/home_ui_state.dart';
@@ -11,17 +12,21 @@ class HomeViewModel with ChangeNotifier {
   final GetUserUseCase _getUserUseCase;
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetRecipesByCategoryUseCase _getRecipesByCategoryUseCase;
+  final GetNewRecipesUseCase _getNewRecipesUseCase;
 
   HomeViewModel({
     required GetUserUseCase getUserUseCase,
     required GetCategoriesUseCase getCategoriesUseCase,
     required GetRecipesByCategoryUseCase getRecipesByCategoryUseCase,
+    required GetNewRecipesUseCase getNewRecipesUseCase,
   })  : _getUserUseCase = getUserUseCase,
         _getCategoriesUseCase = getCategoriesUseCase,
-        _getRecipesByCategoryUseCase = getRecipesByCategoryUseCase {
+        _getRecipesByCategoryUseCase = getRecipesByCategoryUseCase,
+        _getNewRecipesUseCase = getNewRecipesUseCase {
     fetchUser();
     fetchCategories();
     fetchDishes('All');
+    fetchNewRecipes();
   }
 
   HomeUiState _state = const HomeUiState(
@@ -71,7 +76,16 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> fetchNewRecipes() async {}
+  Future<void> fetchNewRecipes() async {
+    final result = await _getNewRecipesUseCase.execute();
+    switch (result) {
+      case Success<List<Recipe>>():
+        _state = state.copyWith(newRecipes: result.data);
+        notifyListeners();
+      case Error<List<Recipe>>():
+      // TODO: Handle this case.
+    }
+  }
 
   void onSelectCategory(String category) async {
     _state = state.copyWith(selectedCategory: category);
