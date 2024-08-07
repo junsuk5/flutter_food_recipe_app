@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
-class CategoryRow extends StatelessWidget {
+class RecipeCategoryPicker extends StatelessWidget {
   final void Function(String category) onTapCategory;
 
   final List<String> categories;
   final String selectedCategory;
 
-  const CategoryRow({
+  const RecipeCategoryPicker({
     super.key,
     required this.categories,
     required this.selectedCategory,

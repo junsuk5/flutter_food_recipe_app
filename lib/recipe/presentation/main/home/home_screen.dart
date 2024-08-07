@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/presentation/component/category_row.dart';
+import 'package:food_recipe_app/core/presentation/component/recipe_category_picker.dart';
 import 'package:food_recipe_app/core/presentation/component/dish_card.dart';
 import 'package:food_recipe_app/core/presentation/component/new_recipe_card.dart';
 import 'package:food_recipe_app/core/presentation/component/small_box.dart';
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
           enabled: state.categories.isEmpty,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            child: CategoryRow(
+            child: RecipeCategoryPicker(
               categories: state.categories,
               selectedCategory: state.selectedCategory,
               onTapCategory: (String category) {
