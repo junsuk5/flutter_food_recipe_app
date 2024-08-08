@@ -2,7 +2,9 @@ import 'package:food_recipe_app/core/domain/model/profile.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/data/data_source/profile/profile_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/repository/profile_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Singleton(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileDataSource dataSource;
 

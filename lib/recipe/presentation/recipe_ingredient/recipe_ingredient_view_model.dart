@@ -8,25 +8,23 @@ import 'package:food_recipe_app/recipe/domain/repository/ingredient_repository.d
 import 'package:food_recipe_app/recipe/domain/repository/procedure_repository.dart';
 import 'package:food_recipe_app/recipe/domain/repository/profile_repository.dart';
 import 'package:food_recipe_app/recipe/domain/repository/recipe_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class RecipeIngredientViewModel with ChangeNotifier {
-  final Recipe recipe;
   final RecipeRepository recipeRepository;
   final IngredientRepository ingredientRepository;
   final ProcedureRepository procedureRepository;
   final ProfileRepository profileRepository;
 
-  RecipeIngredientViewModel(
-    this.recipe, {
+  RecipeIngredientViewModel({
     required this.profileRepository,
     required this.recipeRepository,
     required this.ingredientRepository,
     required this.procedureRepository,
-  }) {
-    _initProfile();
-  }
+  });
 
-  Future<void> _initProfile() async {
+  Future<void> initProfile(Recipe recipe) async {
     await getProfile(recipe.chef);
     await getProcedures(recipe.id);
   }
@@ -42,13 +40,10 @@ class RecipeIngredientViewModel with ChangeNotifier {
   );
   Set<Profile> _followingSet = {};
   int _currentTabIndex = 0;
-  late String _currentTabText = '${recipe.ingredients.length} items';
 
   List<Procedure> get procedureList => _procedureList;
 
   int get currentTabIndex => _currentTabIndex;
-
-  String get currentTabText => _currentTabText;
 
   Profile get chef => _chef;
 
@@ -56,9 +51,6 @@ class RecipeIngredientViewModel with ChangeNotifier {
 
   void updateTab(int index) {
     _currentTabIndex = index;
-    _currentTabText = index == 0
-        ? '${recipe.ingredients.length} items'
-        : '${procedureList.length} steps';
     notifyListeners();
   }
 

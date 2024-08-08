@@ -1,6 +1,9 @@
 import 'package:food_recipe_app/recipe/data/data_source/procedure/procedure_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/model/procedure.dart';
+import 'package:injectable/injectable.dart';
 
+@dev
+@Singleton(as: ProcedureDataSource)
 class MockProcedureDataSource implements ProcedureDataSource {
   final _data = [
     // Recipe 1: Traditional spare ribs baked

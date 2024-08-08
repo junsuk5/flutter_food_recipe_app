@@ -127,7 +127,9 @@ class _RecipeIngredientScreenState extends State<RecipeIngredientScreen>
                   ),
                   const Spacer(),
                   Text(
-                    viewModel.currentTabText,
+                    _tabController.index == 0
+                        ? '${widget.recipe.ingredients.length} items'
+                        : '${viewModel.procedureList.length} steps',
                     style: TextStyles.smallerTextRegular
                         .copyWith(color: ColorStyles.gray3),
                   ),
