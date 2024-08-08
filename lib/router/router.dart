@@ -2,6 +2,7 @@ import 'package:food_recipe_app/auth/presentation/create_account/create_account_
 import 'package:food_recipe_app/auth/presentation/sign_up/sign_up_screen.dart';
 import 'package:food_recipe_app/auth/presentation/sing_in/sign_in_screen.dart';
 import 'package:food_recipe_app/auth/presentation/splash/splash_screen.dart';
+import 'package:food_recipe_app/di/di_setup.dart';
 import 'package:food_recipe_app/recipe/data/data_source/ingredient/mock_ingredient_data_source.dart';
 import 'package:food_recipe_app/recipe/data/data_source/procedure/mock_procedure_data_source.dart';
 import 'package:food_recipe_app/recipe/data/data_source/profile/mock_profile_data_source.dart';
@@ -68,15 +69,7 @@ final router = GoRouter(
       builder: (context, state) {
         final recipe = state.extra as Recipe;
         return ChangeNotifierProvider<RecipeIngredientViewModel>(
-            create: (context) => RecipeIngredientViewModel(recipe,
-                profileRepository:
-                    ProfileRepositoryImpl(dataSource: MockProfileDataSource()),
-                recipeRepository: RecipeRepositoryImpl(
-                    recipeDataSource: MockRecipeDataSource()),
-                ingredientRepository: IngredientRepositoryImpl(
-                    datasource: MockIngredientDataSource()),
-                procedureRepository: ProcedureRepositoryImpl(
-                    dataSource: MockProcedureDataSource())),
+            create: (context) => getIt(),
             child: RecipeIngredientScreen(recipe: recipe));
       },
     ),
