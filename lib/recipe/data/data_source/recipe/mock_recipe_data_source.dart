@@ -2,9 +2,7 @@ import 'package:food_recipe_app/recipe/data/data_source/recipe/recipe_data_sourc
 import 'package:food_recipe_app/recipe/domain/model/ingredient.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe_ingredient.dart';
-import 'package:injectable/injectable.dart';
 
-@Singleton(as: RecipeDataSource)
 class MockRecipeDataSource implements RecipeDataSource {
   final _data = [
     const Recipe(

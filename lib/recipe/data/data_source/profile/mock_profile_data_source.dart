@@ -1,8 +1,6 @@
 import 'package:food_recipe_app/core/domain/model/profile.dart';
 import 'package:food_recipe_app/recipe/data/data_source/profile/profile_data_source.dart';
-import 'package:injectable/injectable.dart';
 
-@Singleton(as: ProfileDataSource)
 class MockProfileDataSource implements ProfileDataSource {
   final List<Profile> _data = [
     const Profile(

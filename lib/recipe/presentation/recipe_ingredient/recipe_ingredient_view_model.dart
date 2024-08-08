@@ -8,9 +8,7 @@ import 'package:food_recipe_app/recipe/domain/repository/ingredient_repository.d
 import 'package:food_recipe_app/recipe/domain/repository/procedure_repository.dart';
 import 'package:food_recipe_app/recipe/domain/repository/profile_repository.dart';
 import 'package:food_recipe_app/recipe/domain/repository/recipe_repository.dart';
-import 'package:injectable/injectable.dart';
 
-@injectable
 class RecipeIngredientViewModel with ChangeNotifier {
   final RecipeRepository recipeRepository;
   final IngredientRepository ingredientRepository;

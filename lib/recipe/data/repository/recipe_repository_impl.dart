@@ -2,9 +2,7 @@ import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/data/data_source/recipe/recipe_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/domain/repository/recipe_repository.dart';
-import 'package:injectable/injectable.dart';
 
-@Singleton(as: RecipeRepository)
 class RecipeRepositoryImpl implements RecipeRepository {
   final RecipeDataSource _recipeDataSource;
 

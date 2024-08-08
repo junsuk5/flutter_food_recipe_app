@@ -6,7 +6,6 @@ import 'ui/theme.dart';
 import 'ui/util.dart';
 
 void main() {
-  // diSetup();
   configureDependencies();
   runApp(const MyApp());
 }

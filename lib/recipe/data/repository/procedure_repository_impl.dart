@@ -2,9 +2,7 @@ import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/recipe/data/data_source/procedure/procedure_data_source.dart';
 import 'package:food_recipe_app/recipe/domain/model/procedure.dart';
 import 'package:food_recipe_app/recipe/domain/repository/procedure_repository.dart';
-import 'package:injectable/injectable.dart';
 
-@Singleton(as: ProcedureRepository)
 class ProcedureRepositoryImpl implements ProcedureRepository {
   final ProcedureDataSource dataSource;
 
