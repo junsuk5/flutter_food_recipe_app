@@ -3,15 +3,8 @@ import 'package:food_recipe_app/auth/presentation/sign_up/sign_up_screen.dart';
 import 'package:food_recipe_app/auth/presentation/sing_in/sign_in_screen.dart';
 import 'package:food_recipe_app/auth/presentation/splash/splash_screen.dart';
 import 'package:food_recipe_app/di/di_setup.dart';
-import 'package:food_recipe_app/recipe/data/data_source/ingredient/mock_ingredient_data_source.dart';
-import 'package:food_recipe_app/recipe/data/data_source/procedure/mock_procedure_data_source.dart';
-import 'package:food_recipe_app/recipe/data/data_source/profile/mock_profile_data_source.dart';
 import 'package:food_recipe_app/recipe/data/data_source/recipe/mock_recipe_data_source.dart';
-import 'package:food_recipe_app/recipe/data/repository/ingredient_repository_impl.dart';
-import 'package:food_recipe_app/recipe/data/repository/procedure_repository_impl.dart';
-import 'package:food_recipe_app/recipe/data/repository/profile_repository_impl.dart';
 import 'package:food_recipe_app/recipe/data/repository/recipe_repository_impl.dart';
-import 'package:food_recipe_app/recipe/data/repository/saved_recipe_repository_impl.dart';
 import 'package:food_recipe_app/recipe/domain/model/recipe.dart';
 import 'package:food_recipe_app/recipe/presentation/main/main_screen.dart';
 import 'package:food_recipe_app/recipe/presentation/recipe_ingredient/recipe_ingredient_screen.dart';
@@ -58,11 +51,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/main_screen',
-      builder: (context, state) => MainScreen(
-        repository: SavedRecipeRepositoryImpl(
-          recipeDataSource: MockRecipeDataSource(),
-        ),
-      ),
+      builder: (context, state) => const MainScreen(),
     ),
     GoRoute(
       path: '/recipe_ingredient_screen',
