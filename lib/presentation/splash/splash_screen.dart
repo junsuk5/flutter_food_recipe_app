@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
             'assets/splash_image.png',
             width: double.infinity,
             height: double.infinity,
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
           Align(
             child: Column(
