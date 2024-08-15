@@ -47,8 +47,17 @@ class RecipeIngredientViewModel with ChangeNotifier {
 
   Set<Profile> get followingSet => _followingSet;
 
+  Recipe? _recipe;
+
+  Recipe? get recipe => _recipe;
+
   void updateTab(int index) {
     _currentTabIndex = index;
+    notifyListeners();
+  }
+
+  void fetchRecipe(String id) async {
+    _recipe = await recipeRepository.getRecipe(int.parse(id));
     notifyListeners();
   }
 

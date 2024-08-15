@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:food_recipe_app/core/util/result.dart';
 import 'package:food_recipe_app/data/data_source/recipe/recipe_data_source.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
@@ -18,5 +19,11 @@ class RecipeRepositoryImpl implements RecipeRepository {
     } catch (e) {
       return const Result.error('로드에 실패했습니다.');
     }
+  }
+
+  @override
+  Future<Recipe?> getRecipe(int id) async {
+    return (await _recipeDataSource.getRecipes())
+        .firstWhereOrNull((e) => e.id == id);
   }
 }

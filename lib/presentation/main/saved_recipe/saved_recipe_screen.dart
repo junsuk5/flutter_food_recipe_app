@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
 import 'package:food_recipe_app/presentation/main/saved_recipe/saved_recipe_view_model.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SavedRecipeScreen extends StatelessWidget {
-  const SavedRecipeScreen({super.key});
+  final ValueChanged<Recipe> onTap;
+
+  const SavedRecipeScreen({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +37,7 @@ class SavedRecipeScreen extends StatelessWidget {
                   children: viewModel.recipes
                       .map((e) => RecipeCard(
                             recipe: e,
-                            onTap: (recipe) {
-                              context.push('/recipe_ingredient_screen',
-                                  extra: recipe);
-                            },
+                            onTap: onTap,
                           ))
                       .toList(),
                 ),

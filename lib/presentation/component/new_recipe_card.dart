@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
