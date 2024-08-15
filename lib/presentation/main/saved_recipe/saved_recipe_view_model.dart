@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/util/result.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
@@ -28,7 +30,7 @@ class SavedRecipeViewModel with ChangeNotifier {
         _isLoading = false;
         notifyListeners();
       case Error<List<Recipe>>():
-        print(result.message);
+        log(result.message);
     }
   }
 }

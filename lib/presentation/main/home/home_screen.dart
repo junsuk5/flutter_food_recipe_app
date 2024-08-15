@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/recipe_category_picker.dart';
 import 'package:food_recipe_app/presentation/component/dish_card.dart';
@@ -81,10 +83,10 @@ class HomeScreen extends StatelessWidget {
                           recipe: e,
                           isFavorite: true,
                           onTapFavorite: (Recipe recipe) {
-                            print('onTapFavorite');
+                            log('onTapFavorite');
                           },
                           onTapDish: (Recipe recipe) {
-                            print('onTapDish');
+                            log('onTapDish');
                           },
                         ),
                       ),

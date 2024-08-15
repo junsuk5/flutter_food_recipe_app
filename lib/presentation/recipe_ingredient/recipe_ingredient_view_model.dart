@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/domain/model/profile.dart';
 import 'package:food_recipe_app/core/util/result.dart';
 import 'package:food_recipe_app/domain/model/procedure.dart';
+import 'package:food_recipe_app/domain/model/profile.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/repository/ingredient_repository.dart';
 import 'package:food_recipe_app/domain/repository/procedure_repository.dart';
@@ -36,7 +36,7 @@ class RecipeIngredientViewModel with ChangeNotifier {
         'https://cdn.pixabay.com/photo/2018/11/03/15/51/here-3792307_1280.png',
     address: 'address',
   );
-  Set<Profile> _followingSet = {};
+  final Set<Profile> _followingSet = {};
   int _currentTabIndex = 0;
 
   List<Procedure> get procedureList => _procedureList;
