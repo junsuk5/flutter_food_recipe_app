@@ -6,16 +6,25 @@ import 'package:food_recipe_app/presentation/component/recipe_picture.dart';
 import 'package:food_recipe_app/presentation/recipe_ingredient/recipe_ingredient_view_model.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+enum RecipeIngredientMenu {
+  share,
+  rateRecipe,
+  review,
+  save,
+  unSave,
+}
+
 class RecipeIngredientScreen extends StatefulWidget {
   final String recipeId;
+  final ValueChanged<RecipeIngredientMenu> onMenuTap;
 
   const RecipeIngredientScreen({
     super.key,
     required this.recipeId,
+    required this.onMenuTap,
   });
 
   @override
@@ -59,30 +68,66 @@ class _RecipeIngredientScreenState extends State<RecipeIngredientScreen>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            PopupMenuButton(
+              icon: const Icon(Icons.more_horiz),
+              padding: EdgeInsets.zero,
+              itemBuilder: (BuildContext context) {
+                return [
+                  PopupMenuItem(
+                    child: const Text('share'),
+                    onTap: () => widget.onMenuTap(RecipeIngredientMenu.share),
+                  ),
+                  PopupMenuItem(
+                    child: const Text('Rate Recipe'),
+                    onTap: () =>
+                        widget.onMenuTap(RecipeIngredientMenu.rateRecipe),
+                  ),
+                  PopupMenuItem(
+                    child: const Text('Review'),
+                    onTap: () => widget.onMenuTap(RecipeIngredientMenu.review),
+                  ),
+                  PopupMenuItem(
+                    child: const Text('Unsave'),
+                    onTap: () => widget.onMenuTap(RecipeIngredientMenu.save),
+                  ),
+                ];
+              },
+            ),
+          ],
+        ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 54.0,
-                left: 20.0,
-                right: 24.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () => context.pop(),
-                    icon: const Icon(Icons.arrow_back),
-                    padding: EdgeInsets.zero,
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_horiz),
-                    padding: EdgeInsets.zero,
-                  )
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     top: 54.0,
+            //     left: 20.0,
+            //     right: 24.0,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       IconButton(
+            //         onPressed: () => context.pop(),
+            //         icon: const Icon(Icons.arrow_back),
+            //         padding: EdgeInsets.zero,
+            //       ),
+            //       PopupMenuButton(
+            //         icon: const Icon(Icons.more_horiz),
+            //         padding: EdgeInsets.zero,
+            //         itemBuilder: (BuildContext context) {
+            //           return [
+            //             const PopupMenuItem(child: Text('share')),
+            //             const PopupMenuItem(child: Text('Rate Recipe')),
+            //             const PopupMenuItem(child: Text('Review')),
+            //             const PopupMenuItem(child: Text('Unsave')),
+            //           ];
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Skeletonizer(
               enabled: viewModel.recipe == null,
               child: RecipePicture(recipe: viewModel.recipe!),
@@ -108,8 +153,7 @@ class _RecipeIngredientScreenState extends State<RecipeIngredientScreen>
                   Padding(
                     padding: EdgeInsets.only(
                         top: 13.0, bottom: 13.0, right: 45.0, left: 45.0),
-                    child:
-                        Text('Procedure', style: TextStyles.smallerTextBold),
+                    child: Text('Procedure', style: TextStyles.smallerTextBold),
                   ),
                 ],
                 // TabBar 스타일 지정
