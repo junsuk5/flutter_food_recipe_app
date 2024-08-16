@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
 import 'package:food_recipe_app/data/data_source/recipe/mock_recipe_data_source.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/pop_up_dialog.dart';
+import 'package:food_recipe_app/presentation/component/rate_dialog.dart';
 import 'package:food_recipe_app/presentation/create_account/create_account_screen.dart';
 import 'package:food_recipe_app/presentation/main/home/home_screen.dart';
 import 'package:food_recipe_app/presentation/main/home/home_view_model.dart';
@@ -133,28 +135,41 @@ final router = GoRouter(
               switch (menu) {
                 case RecipeIngredientMenu.share:
                   showDialog(
-                      context: context,
-                      builder: (context) {
-                        return PopUpDialog(
-                          url:
-                              'recipe://recipe.survivalcoding.com/saved_recipe/$id',
-                          onPressed: () {
-                            // viewModel.copyLinkToClipboard(
-                            //     'foodrecipe://recipe/${recipe.id}');
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Link Copied',
-                                  textAlign: TextAlign.right,
-                                ),
+                    context: context,
+                    builder: (context) {
+                      return PopUpDialog(
+                        url:
+                            'recipe://recipe.survivalcoding.com/saved_recipe/$id',
+                        onPressed: () {
+                          // TODO :
+                          // viewModel.copyLinkToClipboard(
+                          //     'foodrecipe://recipe/${recipe.id}');
+                          Navigator.of(context).pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Link Copied',
+                                textAlign: TextAlign.right,
                               ),
-                            );
-                          },
-                        );
-                      });
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
                 case RecipeIngredientMenu.rateRecipe:
-                // TODO: Handle this case.
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return RateDialog(
+                        onChanged: (double value) {
+                          // TODO : 별점 주기
+                          log(value);
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  );
                 case RecipeIngredientMenu.review:
                 // TODO: Handle this case.
                 case RecipeIngredientMenu.save:
