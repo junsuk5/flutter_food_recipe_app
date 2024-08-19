@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/util/result.dart';
+import 'package:food_recipe_app/domain/filter/filter_search_state.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/model/user.dart';
 import 'package:food_recipe_app/domain/use_case/get_categories_use_case.dart';
@@ -23,10 +26,10 @@ class HomeViewModel with ChangeNotifier {
         _getCategoriesUseCase = getCategoriesUseCase,
         _getRecipesByCategoryUseCase = getRecipesByCategoryUseCase,
         _getNewRecipesUseCase = getNewRecipesUseCase {
-    fetchUser();
-    fetchCategories();
-    fetchDishes('All');
-    fetchNewRecipes();
+    _fetchUser();
+    _fetchCategories();
+    _fetchDishes('All');
+    _fetchNewRecipes();
   }
 
   HomeUiState _state = const HomeUiState(
@@ -41,34 +44,50 @@ class HomeViewModel with ChangeNotifier {
 
   HomeUiState get state => _state;
 
-  Future<void> fetchUser() async {
+  Future<void> _fetchUser() async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
+
     final result = await _getUserUseCase.execute();
     switch (result) {
       case Success<User>():
-        _state = state.copyWith(user: result.data);
+        _state = state.copyWith(
+          user: result.data,
+          isLoading: false,
+        );
         notifyListeners();
       case Error<User>():
       // TODO: Handle this case.
     }
   }
 
-  Future<void> fetchCategories() async {
+  Future<void> _fetchCategories() async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
+
     final result = await _getCategoriesUseCase.execute();
     switch (result) {
       case Success<List<String>>():
-        _state = state.copyWith(categories: result.data);
+        _state = state.copyWith(
+          categories: result.data,
+          isLoading: false,
+        );
         notifyListeners();
       case Error<List<String>>():
       // TODO: Handle this case.
     }
   }
 
-  Future<void> fetchDishes(String category) async {
+  Future<void> _fetchDishes(String category) async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
+
     final result = await _getRecipesByCategoryUseCase.execute(category);
     switch (result) {
       case Success<List<Recipe>>():
         _state = state.copyWith(
           currentRecipes: result.data,
+          isLoading: false,
         );
         notifyListeners();
       case Error<List<Recipe>>():
@@ -76,11 +95,17 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> fetchNewRecipes() async {
+  Future<void> _fetchNewRecipes() async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
+
     final result = await _getNewRecipesUseCase.execute();
     switch (result) {
       case Success<List<Recipe>>():
-        _state = state.copyWith(newRecipes: result.data);
+        _state = state.copyWith(
+          newRecipes: result.data,
+          isLoading: false,
+        );
         notifyListeners();
       case Error<List<Recipe>>():
       // TODO: Handle this case.
@@ -91,6 +116,16 @@ class HomeViewModel with ChangeNotifier {
     _state = state.copyWith(selectedCategory: category);
     notifyListeners();
 
-    await fetchDishes(category);
+    await _fetchDishes(category);
+  }
+
+  void onChangeFilter(FilterSearchState filterState) async {
+    _state = state.copyWith(
+      filterState: filterState
+    );
+    notifyListeners();
+
+    // TODO: 필터 적용
+    log(state.filterState.toString());
   }
 }

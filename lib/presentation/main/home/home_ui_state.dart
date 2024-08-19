@@ -1,3 +1,4 @@
+import 'package:food_recipe_app/domain/filter/filter_search_state.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/model/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,5 +13,7 @@ class HomeUiState with _$HomeUiState {
     @Default([]) List<Recipe> newRecipes,
     required String selectedCategory,
     required User user,
+    @Default(false) bool isLoading,
+    @Default(FilterSearchState()) FilterSearchState filterState,
   }) = _HomeUiState;
 }

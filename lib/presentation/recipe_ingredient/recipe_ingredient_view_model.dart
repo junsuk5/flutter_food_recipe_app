@@ -51,6 +51,20 @@ class RecipeIngredientViewModel with ChangeNotifier {
 
   Recipe? get recipe => _recipe;
 
+  bool _isFollowing = false;
+
+  bool get isFollowing => _isFollowing;
+
+  void onTabFollow() {
+    _isFollowing = !_isFollowing;
+    notifyListeners();
+  }
+
+  void onTabUnSave() {
+    // TODO : UnSave
+    notifyListeners();
+  }
+
   void updateTab(int index) {
     _currentTabIndex = index;
     notifyListeners();

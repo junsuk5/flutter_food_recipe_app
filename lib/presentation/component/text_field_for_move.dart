@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
-import 'package:go_router/go_router.dart';
 
 class TextFieldForMove extends StatelessWidget {
   final String hintText;
-  final String path;
+  final void Function() onTapSearch;
+  final void Function() onTapFilter;
 
   const TextFieldForMove({
     super.key,
     required this.hintText,
-    required this.path,
+    required this.onTapSearch,
+    required this.onTapFilter,
   });
 
   @override
@@ -23,9 +24,7 @@ class TextFieldForMove extends StatelessWidget {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () {
-                context.push(path);
-              },
+              onTap: onTapSearch,
               child: AbsorbPointer(
                 child: TextField(
                   decoration: InputDecoration(
@@ -47,17 +46,20 @@ class TextFieldForMove extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: ColorStyles.primary100,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Image.asset(
-                  'assets/images/filter.png',
-                  width: 24,
-                  height: 24,
+            child: GestureDetector(
+              onTap: onTapFilter,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: ColorStyles.primary100,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Image.asset(
+                    'assets/images/filter.png',
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
               ),
             ),

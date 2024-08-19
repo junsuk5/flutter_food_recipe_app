@@ -9,7 +9,6 @@ import 'package:food_recipe_app/presentation/component/pop_up_dialog.dart';
 import 'package:food_recipe_app/presentation/component/rate_dialog.dart';
 import 'package:food_recipe_app/presentation/create_account/create_account_screen.dart';
 import 'package:food_recipe_app/presentation/main/home/home_screen.dart';
-import 'package:food_recipe_app/presentation/main/home/home_view_model.dart';
 import 'package:food_recipe_app/presentation/main/main_screen.dart';
 import 'package:food_recipe_app/presentation/main/notification/notification_screen.dart';
 import 'package:food_recipe_app/presentation/main/profile/profile_screen.dart';
@@ -76,10 +75,7 @@ final router = GoRouter(
             GoRoute(
               path: '/home',
               builder: (context, state) {
-                return ChangeNotifierProvider<HomeViewModel>(
-                  create: (context) => getIt<HomeViewModel>(),
-                  child: const HomeScreen(),
-                );
+                return const HomeRoot();
               },
             ),
           ],
