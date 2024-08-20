@@ -98,7 +98,6 @@ class _FilterSearchSheetState extends State<FilterSearchSheet> {
                       'Fruit',
                       'BreadFast',
                       'Spanish',
-                      'Chinese',
                       'Lunch',
                     ],
                     selectedItem: _state.category,
