@@ -5,13 +5,15 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 class Search extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
-  final void Function(String)? function;
+  final void Function(String)? onChangeQuery;
+  final VoidCallback onTapFilter;
 
   const Search({
     super.key,
     required this.hintText,
     this.controller,
-    this.function,
+    this.onChangeQuery,
+    required this.onTapFilter,
   });
 
   @override
@@ -24,7 +26,7 @@ class Search extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              onChanged: function,
+              onChanged: onChangeQuery,
               controller: controller,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
@@ -52,12 +54,15 @@ class Search extends StatelessWidget {
                 color: ColorStyles.primary100,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Image.asset(
-                  'assets/images/filter.png',
-                  width: 24,
-                  height: 24,
+              child: GestureDetector(
+                onTap: onTapFilter,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Image.asset(
+                    'assets/images/filter.png',
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
               ),
             ),

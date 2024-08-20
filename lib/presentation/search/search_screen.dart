@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/domain/filter/filter_search_state.dart';
 import 'package:food_recipe_app/presentation/component/search.dart';
 import 'package:food_recipe_app/presentation/component/search_image.dart';
+import 'package:food_recipe_app/presentation/main/home/component/filter_search_sheet.dart';
 import 'package:food_recipe_app/presentation/search/search_view_model.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +26,22 @@ class SearchScreen extends StatelessWidget {
         children: [
           Search(
             hintText: 'Search recipe',
-            function: viewModel.search,
+            onChangeQuery: viewModel.search,
+            onTapFilter: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return FilterSearchSheet(
+                    onChangeFilter: (filter) {
+                      // TODO : 필터 동작
+                      Navigator.pop(context);
+                    },
+                    state: const FilterSearchState(),
+                  );
+                },
+              );
+            },
           ),
           const Padding(
             padding: EdgeInsets.only(left: 30.0, top: 10.0, bottom: 20.0),
