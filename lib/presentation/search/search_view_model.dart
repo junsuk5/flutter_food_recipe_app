@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/util/result.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/repository/recipe_repository.dart';
 
@@ -25,27 +24,24 @@ class SearchViewModel with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final result = await repository.getRecipes();
-    switch (result) {
-      case Success<List<Recipe>>():
-        _recipes = result.data;
-        _isLoading = false;
-        notifyListeners();
-      case Error<List<Recipe>>():
-        log(result.message);
+    try {
+      _recipes = await repository.getRecipes();
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      log('fetchRecipes() Error');
     }
   }
 
   void search(String value) async {
-    final result = await repository.getRecipes();
-    switch (result) {
-      case Success<List<Recipe>>():
-        _recipes = result.data
-            .where((e) => e.name.toLowerCase().contains(value.toLowerCase()))
-            .toList();
-        notifyListeners();
-      case Error<List<Recipe>>():
-        log(result.message);
+    try {
+      final results = await repository.getRecipes();
+      _recipes = results
+          .where((e) => e.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } catch (e) {
+      log('search() Error');
     }
   }
 }

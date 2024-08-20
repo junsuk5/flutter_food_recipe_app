@@ -1,5 +1,5 @@
 import 'package:food_recipe_app/core/util/result.dart';
-import 'package:food_recipe_app/data/data_source/ingredient/ingredient_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/ingredient/ingredient_data_source.dart';
 import 'package:food_recipe_app/domain/model/ingredient.dart';
 import 'package:food_recipe_app/domain/repository/ingredient_repository.dart';
 

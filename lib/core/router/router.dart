@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
-import 'package:food_recipe_app/data/data_source/recipe/mock_recipe_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/recipe/mock_recipe_data_source.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/pop_up_dialog.dart';

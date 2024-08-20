@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/util/result.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
-import 'package:food_recipe_app/domain/repository/saved_recipe_repository.dart';
+import 'package:food_recipe_app/domain/use_case/get_saved_recipes_use_case.dart';
 
 class SavedRecipeViewModel with ChangeNotifier {
-  final SavedRecipeRepository repository;
+  final GetSavedRecipesUseCase _getSavedRecipesUseCase;
   bool _isLoading = false;
 
-  SavedRecipeViewModel(this.repository) {
+  SavedRecipeViewModel(this._getSavedRecipesUseCase) {
     fetchRecipes();
   }
 
@@ -23,7 +23,7 @@ class SavedRecipeViewModel with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final result = await repository.getRecipes();
+    final result = await _getSavedRecipesUseCase.execute();
     switch (result) {
       case Success<List<Recipe>>():
         _recipes = result.data;

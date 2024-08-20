@@ -1,6 +1,6 @@
 import 'package:food_recipe_app/domain/model/profile.dart';
 import 'package:food_recipe_app/core/util/result.dart';
-import 'package:food_recipe_app/data/data_source/profile/profile_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/profile/profile_data_source.dart';
 import 'package:food_recipe_app/domain/repository/profile_repository.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {

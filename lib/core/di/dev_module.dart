@@ -1,11 +1,13 @@
-import 'package:food_recipe_app/data/data_source/ingredient/ingredient_data_source.dart';
-import 'package:food_recipe_app/data/data_source/ingredient/mock_ingredient_data_source.dart';
-import 'package:food_recipe_app/data/data_source/procedure/mock_procedure_data_source.dart';
-import 'package:food_recipe_app/data/data_source/procedure/procedure_data_source.dart';
-import 'package:food_recipe_app/data/data_source/profile/mock_profile_data_source.dart';
-import 'package:food_recipe_app/data/data_source/profile/profile_data_source.dart';
-import 'package:food_recipe_app/data/data_source/recipe/mock_recipe_data_source.dart';
-import 'package:food_recipe_app/data/data_source/recipe/recipe_data_source.dart';
+import 'package:food_recipe_app/data/data_source/local/bookmark_data_source.dart';
+import 'package:food_recipe_app/data/data_source/local/in_memory_bookmark_data_source_impl.dart';
+import 'package:food_recipe_app/data/data_source/remote/ingredient/ingredient_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/ingredient/mock_ingredient_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/procedure/mock_procedure_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/procedure/procedure_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/profile/mock_profile_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/profile/profile_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/recipe/mock_recipe_data_source.dart';
+import 'package:food_recipe_app/data/data_source/remote/recipe/recipe_data_source.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -25,4 +27,8 @@ abstract class DevModule {
   @dev
   @lazySingleton
   ProfileDataSource get profileDataSource => MockProfileDataSource();
+
+  @dev
+  @lazySingleton
+  BookmarkDataSource get bookmarkDataSource => InMemoryBookmarkDataSourceImpl();
 }

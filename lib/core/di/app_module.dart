@@ -1,10 +1,12 @@
 import 'package:food_recipe_app/core/di/di_setup.dart';
+import 'package:food_recipe_app/data/repository/bookmark_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/profile_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/saved_recipe_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/user_repository_impl.dart';
+import 'package:food_recipe_app/domain/repository/bookmark_repository.dart';
 import 'package:food_recipe_app/domain/repository/ingredient_repository.dart';
 import 'package:food_recipe_app/domain/repository/procedure_repository.dart';
 import 'package:food_recipe_app/domain/repository/profile_repository.dart';
@@ -14,6 +16,7 @@ import 'package:food_recipe_app/domain/repository/user_repository.dart';
 import 'package:food_recipe_app/domain/use_case/get_categories_use_case.dart';
 import 'package:food_recipe_app/domain/use_case/get_new_recipes_use_case.dart';
 import 'package:food_recipe_app/domain/use_case/get_recipes_by_category_use_case.dart';
+import 'package:food_recipe_app/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:food_recipe_app/domain/use_case/get_user_use_case.dart';
 import 'package:food_recipe_app/presentation/main/home/home_view_model.dart';
 import 'package:food_recipe_app/presentation/main/saved_recipe/saved_recipe_view_model.dart';
@@ -46,6 +49,9 @@ abstract class AppModule {
   UserRepository get userRepository => UserRepositoryImpl();
 
   @lazySingleton
+  BookmarkRepository get bookmarkRepository => BookmarkRepositoryImpl(getIt());
+
+  @lazySingleton
   GetUserUseCase get getUserUseCase => GetUserUseCase(getIt());
 
   @lazySingleton
@@ -59,6 +65,12 @@ abstract class AppModule {
   @lazySingleton
   GetNewRecipesUseCase get getNewRecipesUseCase =>
       GetNewRecipesUseCase(getIt());
+
+  @lazySingleton
+  GetSavedRecipesUseCase get getSavedRecipesUseCase => GetSavedRecipesUseCase(
+        bookmarkRepository: getIt(),
+        recipeRepository: getIt(),
+      );
 
   @injectable
   RecipeIngredientViewModel get recipeIngredientViewModel =>

@@ -8,17 +8,15 @@ class GetRecipesByCategoryUseCase {
   GetRecipesByCategoryUseCase(this._recipeRepository);
 
   Future<Result<List<Recipe>>> execute(String category) async {
-    final result = await _recipeRepository.getRecipes();
-
-    switch (result) {
-      case Success<List<Recipe>>():
-        if (category == 'All') {
-          return Result.success(result.data);
-        }
-        return Result.success(
-            result.data.where((e) => e.category == category).toList());
-      case Error<List<Recipe>>():
-        return Result.error(result.message);
+    try {
+      final results = await _recipeRepository.getRecipes();
+      if (category == 'All') {
+        return Result.success(results);
+      }
+      return Result.success(
+          results.where((e) => e.category == category).toList());
+    } catch (e) {
+      return const Result.error('GetRecipesByCategoryUseCase Error');
     }
   }
 }

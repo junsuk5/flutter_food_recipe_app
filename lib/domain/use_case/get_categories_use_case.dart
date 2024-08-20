@@ -1,5 +1,4 @@
 import 'package:food_recipe_app/core/util/result.dart';
-import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/repository/recipe_repository.dart';
 
 class GetCategoriesUseCase {
@@ -8,16 +7,15 @@ class GetCategoriesUseCase {
   GetCategoriesUseCase(this._recipeRepository);
 
   Future<Result<List<String>>> execute() async {
-    final result = await _recipeRepository.getRecipes();
+    try {
+      final results = await _recipeRepository.getRecipes();
 
-    switch (result) {
-      case Success<List<Recipe>>():
-        return Result.success([
-          'All',
-          ...result.data.map((e) => e.category).toSet(),
-        ]);
-      case Error<List<Recipe>>():
-        return Result.error(result.message);
+      return Result.success([
+        'All',
+        ...results.map((e) => e.category).toSet(),
+      ]);
+    } catch (e) {
+      return const Result.error('GetCategoriesUseCase Error');
     }
   }
 }
