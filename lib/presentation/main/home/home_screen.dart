@@ -50,6 +50,10 @@ class HomeRoot extends StatelessWidget {
                   );
                 case OnTapSearch():
                   context.push('/search_screen');
+                case OnTapRecipe():
+                  context.push('/home/${action.recipe.id}');
+                case OnTapFavorite():
+                // TODO: Handle this case.
               }
             },
           );
@@ -139,6 +143,7 @@ class HomeScreen extends StatelessWidget {
                             log('onTapFavorite');
                           },
                           onTapDish: (Recipe recipe) {
+                            onAction(HomeAction.onTapRecipe(recipe));
                             log('onTapDish');
                           },
                         ),

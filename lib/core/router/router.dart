@@ -26,6 +26,65 @@ import 'package:provider/provider.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
 
+final _recipeDetail = GoRoute(
+  path: ':id',
+  builder: (context, state) {
+    final String id = state.pathParameters['id'] ?? '';
+    return ChangeNotifierProvider<RecipeIngredientViewModel>(
+      create: (context) => getIt(),
+      child: RecipeIngredientScreen(
+        recipeId: id,
+        onMenuTap: (RecipeIngredientMenu menu) {
+          switch (menu) {
+            case RecipeIngredientMenu.share:
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return PopUpDialog(
+                    url: 'recipe://recipe.survivalcoding.com/saved_recipe/$id',
+                    onPressed: () {
+                      // TODO :
+                      // viewModel.copyLinkToClipboard(
+                      //     'foodrecipe://recipe/${recipe.id}');
+                      Navigator.of(context).pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Link Copied',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            case RecipeIngredientMenu.rateRecipe:
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return RateDialog(
+                    onChanged: (double value) {
+                      // TODO : 별점 주기
+                      log(value);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              );
+            case RecipeIngredientMenu.review:
+            // TODO: Handle this case.
+            case RecipeIngredientMenu.save:
+            // TODO: Handle this case.
+            case RecipeIngredientMenu.unSave:
+            // TODO: Handle this case.
+          }
+        },
+      ),
+    );
+  },
+);
+
 // GoRouter configuration
 final router = GoRouter(
   navigatorKey: _navigatorKey,
@@ -77,6 +136,9 @@ final router = GoRouter(
               builder: (context, state) {
                 return const HomeRoot();
               },
+              routes: [
+                _recipeDetail,
+              ],
             ),
           ],
         ),
@@ -95,65 +157,7 @@ final router = GoRouter(
                 );
               },
               routes: [
-                GoRoute(
-                  path: ':id',
-                  builder: (context, state) {
-                    final String id = state.pathParameters['id'] ?? '';
-                    return ChangeNotifierProvider<RecipeIngredientViewModel>(
-                      create: (context) => getIt(),
-                      child: RecipeIngredientScreen(
-                        recipeId: id,
-                        onMenuTap: (RecipeIngredientMenu menu) {
-                          switch (menu) {
-                            case RecipeIngredientMenu.share:
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return PopUpDialog(
-                                    url:
-                                    'recipe://recipe.survivalcoding.com/saved_recipe/$id',
-                                    onPressed: () {
-                                      // TODO :
-                                      // viewModel.copyLinkToClipboard(
-                                      //     'foodrecipe://recipe/${recipe.id}');
-                                      Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'Link Copied',
-                                            textAlign: TextAlign.right,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            case RecipeIngredientMenu.rateRecipe:
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return RateDialog(
-                                    onChanged: (double value) {
-                                      // TODO : 별점 주기
-                                      log(value);
-                                      Navigator.pop(context);
-                                    },
-                                  );
-                                },
-                              );
-                            case RecipeIngredientMenu.review:
-                            // TODO: Handle this case.
-                            case RecipeIngredientMenu.save:
-                            // TODO: Handle this case.
-                            case RecipeIngredientMenu.unSave:
-                            // TODO: Handle this case.
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
+                _recipeDetail,
               ],
             ),
           ],
