@@ -11,7 +11,7 @@ import 'package:food_recipe_app/data/data_source/remote/recipe/recipe_data_sourc
 import 'package:injectable/injectable.dart';
 
 @module
-abstract class DevModule {
+abstract class DataSourceModuleDev {
   @dev
   @lazySingleton
   IngredientDataSource get ingredientDataSource => MockIngredientDataSource();
@@ -29,6 +29,29 @@ abstract class DevModule {
   ProfileDataSource get profileDataSource => MockProfileDataSource();
 
   @dev
+  @lazySingleton
+  BookmarkDataSource get bookmarkDataSource => InMemoryBookmarkDataSourceImpl();
+}
+
+@module
+abstract class DataSourceModuleProd {
+  @prod
+  @lazySingleton
+  IngredientDataSource get ingredientDataSource => MockIngredientDataSource();
+
+  @prod
+  @lazySingleton
+  ProcedureDataSource get procedureDataSource => MockProcedureDataSource();
+
+  @prod
+  @lazySingleton
+  RecipeDataSource get recipeDataSource => MockRecipeDataSource();
+
+  @prod
+  @lazySingleton
+  ProfileDataSource get profileDataSource => MockProfileDataSource();
+
+  @prod
   @lazySingleton
   BookmarkDataSource get bookmarkDataSource => InMemoryBookmarkDataSourceImpl();
 }

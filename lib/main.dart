@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
 import 'package:food_recipe_app/core/router/router.dart';
+import 'package:injectable/injectable.dart';
 
 import 'ui/theme.dart';
 import 'ui/util.dart';
 
-void main() {
-  configureDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  configureDependencies(Environment.prod);
+
   runApp(const MyApp());
 }
 
