@@ -51,7 +51,7 @@ class HomeRoot extends StatelessWidget {
                 case OnTapSearch():
                   context.push('/search_screen');
                 case OnTapRecipe():
-                  context.push('/home/${action.recipe.id}');
+                  context.push('/recipes/${action.recipe.id}');
                 case OnTapFavorite():
                 // TODO: Handle this case.
               }

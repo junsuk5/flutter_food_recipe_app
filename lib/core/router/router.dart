@@ -26,8 +26,8 @@ import 'package:provider/provider.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
 
-final _recipeDetail = GoRoute(
-  path: ':id',
+final _deepLinkRecipeDetail = GoRoute(
+  path: 'recipes/:id',
   builder: (context, state) {
     final String id = state.pathParameters['id'] ?? '';
     return ChangeNotifierProvider<RecipeIngredientViewModel>(
@@ -41,7 +41,7 @@ final _recipeDetail = GoRoute(
                 context: context,
                 builder: (context) {
                   return PopUpDialog(
-                    url: 'recipe://recipe.survivalcoding.com/saved_recipe/$id',
+                    url: 'recipe://recipe.survivalcoding.com/home/recipes/$id',
                     onPressed: () {
                       // TODO :
                       // viewModel.copyLinkToClipboard(
@@ -137,7 +137,7 @@ final router = GoRouter(
                 return const HomeRoot();
               },
               routes: [
-                _recipeDetail,
+                _deepLinkRecipeDetail,
               ],
             ),
           ],
@@ -151,14 +151,11 @@ final router = GoRouter(
                   create: (context) => getIt<SavedRecipeViewModel>(),
                   child: SavedRecipeScreen(
                     onTap: (Recipe recipe) {
-                      context.push('/saved_recipe/${recipe.id}');
+                      context.push('/recipes/${recipe.id}');
                     },
                   ),
                 );
               },
-              routes: [
-                _recipeDetail,
-              ],
             ),
           ],
         ),
@@ -183,6 +180,64 @@ final router = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/recipes/:id',
+      builder: (context, state) {
+        final String id = state.pathParameters['id'] ?? '';
+        return ChangeNotifierProvider<RecipeIngredientViewModel>(
+          create: (context) => getIt(),
+          child: RecipeIngredientScreen(
+            recipeId: id,
+            onMenuTap: (RecipeIngredientMenu menu) {
+              switch (menu) {
+                case RecipeIngredientMenu.share:
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return PopUpDialog(
+                        url: 'recipe://recipe.survivalcoding.com/home/recipe/$id',
+                        onPressed: () {
+                          // TODO :
+                          // viewModel.copyLinkToClipboard(
+                          //     'foodrecipe://recipe/${recipe.id}');
+                          Navigator.of(context).pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Link Copied',
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                case RecipeIngredientMenu.rateRecipe:
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return RateDialog(
+                        onChanged: (double value) {
+                          // TODO : 별점 주기
+                          log(value);
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  );
+                case RecipeIngredientMenu.review:
+                // TODO: Handle this case.
+                case RecipeIngredientMenu.save:
+                // TODO: Handle this case.
+                case RecipeIngredientMenu.unSave:
+                // TODO: Handle this case.
+              }
+            },
+          ),
+        );
+      },
     ),
     GoRoute(
       path: '/search_screen',
