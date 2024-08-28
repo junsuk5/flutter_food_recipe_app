@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
 import 'package:food_recipe_app/core/router/router.dart';
 import 'package:injectable/injectable.dart';
@@ -9,8 +10,9 @@ import 'ui/util.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  configureDependencies(Environment.prod);
+  configureDependencies(Environment.dev);
 
+  usePathUrlStrategy();
   runApp(const MyApp());
 }
 

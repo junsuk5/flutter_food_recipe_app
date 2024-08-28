@@ -134,7 +134,7 @@ final router = GoRouter(
             GoRoute(
               path: '/home',
               builder: (context, state) {
-                return const HomeRoot();
+                return const HomeBlocRoot();
               },
               routes: [
                 _deepLinkRecipeDetail,

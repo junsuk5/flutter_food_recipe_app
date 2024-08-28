@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/dish_card.dart';
@@ -17,6 +18,52 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+class HomeBlocRoot extends StatelessWidget {
+  const HomeBlocRoot({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<HomeCubit>(
+      create: (_) => getIt<HomeCubit>(),
+      child: BlocBuilder<HomeCubit, HomeUiState>(
+        builder: (context, state) {
+          final viewModel = context.read<HomeCubit>();
+          return HomeScreen(
+            state: state,
+            onAction: (action) {
+              switch (action) {
+                case OnSelectCategory():
+                  viewModel.onSelectCategory(action.category);
+                case OnTapFilter():
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return FilterSearchSheet(
+                        onChangeFilter: (filter) {
+                          viewModel.onChangeFilter(filter);
+                          Navigator.pop(context);
+                        },
+                        state: state.filterState,
+                      );
+                    },
+                  );
+                case OnTapSearch():
+                  context.push('/search_screen');
+                case OnTapRecipe():
+                  context.push('/recipes/${action.recipe.id}');
+                case OnTapFavorite():
+                // TODO: Handle this case.
+              }
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
 
 class HomeRoot extends StatelessWidget {
   const HomeRoot({super.key});

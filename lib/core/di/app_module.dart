@@ -90,6 +90,16 @@ abstract class AppModule {
       );
 
   @injectable
+  HomeCubit provideHomeCubit() {
+    return HomeCubit(
+      getUserUseCase: getIt(),
+      getCategoriesUseCase: getIt(),
+      getRecipesByCategoryUseCase: getIt(),
+      getNewRecipesUseCase: getIt(),
+    );
+  }
+
+  @injectable
   SavedRecipeViewModel get savedRecipeViewModel =>
       SavedRecipeViewModel(getIt());
 }
