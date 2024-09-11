@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/di/di_setup.dart';
 import 'package:food_recipe_app/core/router/router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'ui/theme.dart';
 import 'ui/util.dart';
@@ -33,6 +35,17 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+      localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('ko'), // 한국어
+        Locale('ja'), // 일본어
+      ],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/medium_button.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   final void Function()? onStartCookingTap;
@@ -54,7 +55,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Simple way to find Tasty Recipe',
+                  AppLocalizations.of(context)!.description,
                   style: TextStyles.normalTextRegular.copyWith(
                     color: Colors.white,
                   ),
